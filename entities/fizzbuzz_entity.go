@@ -5,7 +5,7 @@ type FizzBuzzRequest struct {
 }
 
 type FizzBuzzResponse struct {
-	Status  int                    `json:"status"`
-	Message string                 `json:"message"`
-	Data    map[string]interface{} `json:"data"`
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+	Data    string `json:"data"`
 }

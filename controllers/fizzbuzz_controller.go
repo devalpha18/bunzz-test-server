@@ -18,7 +18,7 @@ func GetFizzBuzz() http.HandlerFunc {
 		// validate the request body
 		if err := json.NewDecoder(r.Body).Decode(&fizzbuzz); err != nil {
 			rw.WriteHeader(http.StatusBadRequest)
-			response := entities.FizzBuzzResponse{Status: http.StatusBadRequest, Message: "error", Data: map[string]interface{}{"data": err.Error()}}
+			response := entities.FizzBuzzResponse{Status: http.StatusBadRequest, Message: "error", Data: err.Error()}
 			json.NewEncoder(rw).Encode(response)
 			return
 		}
@@ -26,7 +26,7 @@ func GetFizzBuzz() http.HandlerFunc {
 		// use the validator library to validate required fields
 		if validationErr := validate.Struct(&fizzbuzz); validationErr != nil {
 			rw.WriteHeader(http.StatusBadRequest)
-			response := entities.FizzBuzzResponse{Status: http.StatusBadRequest, Message: "error", Data: map[string]interface{}{"data": validationErr.Error()}}
+			response := entities.FizzBuzzResponse{Status: http.StatusBadRequest, Message: "error", Data: validationErr.Error()}
 			json.NewEncoder(rw).Encode(response)
 			return
 		}
@@ -34,7 +34,7 @@ func GetFizzBuzz() http.HandlerFunc {
 		result := calcFizzBuzz(fizzbuzz.Count)
 
 		rw.WriteHeader(http.StatusOK)
-		response := entities.FizzBuzzResponse{Status: http.StatusOK, Message: "success", Data: map[string]interface{}{"data": result}}
+		response := entities.FizzBuzzResponse{Status: http.StatusOK, Message: "success", Data: result}
 		json.NewEncoder(rw).Encode(response)
 	}
 }
